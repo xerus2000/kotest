@@ -1,4 +1,5 @@
 import Ci.isGithub
+import groovy.xml.dom.DOMCategory.attributes
 
 buildscript {
 
@@ -52,6 +53,15 @@ allprojects {
 }
 
 val publications: PublicationContainer = (extensions.getByName("publishing") as PublishingExtension).publications
+
+tasks.jar {
+   manifest {
+      attributes(
+         "Implementation-Title" to project.name,
+         "Implementation-Version" to archiveVersion
+      )
+   }
+}
 
 signing {
    useGpgCmd()
