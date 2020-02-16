@@ -42,7 +42,7 @@ kotlin {
    targets.all {
       compilations.all {
          kotlinOptions {
-            freeCompilerArgs = freeCompilerArgs + "-Xuse-experimental=kotlin.Experimental"
+            freeCompilerArgs += listOf("-Xuse-experimental=kotlin.Experimental", "-Xallow-kotlin-package")
          }
       }
    }
@@ -51,7 +51,7 @@ kotlin {
 
       val commonMain by getting {
          dependencies {
-            implementation (kotlin ("stdlib-common"))
+            implementation(kotlin("stdlib-common"))
             implementation(Libs.Coroutines.coreCommon)
             implementation(project(":kotest-mpp"))
          }
@@ -108,7 +108,10 @@ tasks.named<Test>("jvmTest") {
    testLogging {
       showExceptions = true
       showStandardStreams = true
-      events = setOf(org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED, org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED)
+      events = setOf(
+         org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED,
+         org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED
+      )
       exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
    }
 }

@@ -130,12 +130,12 @@ class MatchersTest : FreeSpec({
       }
     }
 
-    "should support matching null with null" {
+    "should support matching nullable (with null value) with null" {
       val name: String? = null
       name shouldBe null
     }
 
-    "should support matching non null with null" {
+    "should support matching nullable (with value) with null" {
       shouldThrow<AssertionError> {
         val name: String? = "nullornot"
         name shouldBe null
@@ -212,13 +212,6 @@ class MatchersTest : FreeSpec({
 
     "Should fail for equal primitive type" {
       shouldThrow<AssertionError> { byteArrayOf(1, 2, 3) shouldNotBe byteArrayOf(1, 2, 3) }
-    }
-    "should support (not) matching null with non-null" {
-      "a" shouldNotBe null
-    }
-
-    "should support (not) matching non-null with null" {
-      null shouldNotBe "a"
     }
 
     "should support (not) matching null with null" {

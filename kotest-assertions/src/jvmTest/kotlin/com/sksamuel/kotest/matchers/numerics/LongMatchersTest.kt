@@ -94,7 +94,7 @@ class LongMatchersTest : StringSpec() {
       )
 
       forAll(table) { a, b ->
-        1 shouldBe between(a, b)
+        1L shouldBe between(a, b)
       }
     }
 
@@ -109,7 +109,7 @@ class LongMatchersTest : StringSpec() {
       )
 
       forNone(table) { a, b ->
-        3 shouldBe between(a, b)
+        3L shouldBe between(a, b)
       }
     }
 

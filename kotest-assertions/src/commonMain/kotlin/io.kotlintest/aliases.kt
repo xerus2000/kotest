@@ -1,5 +1,6 @@
 package io.kotlintest
 
+import io.kotest.matchers.Matcher
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
@@ -34,10 +35,16 @@ infix fun String?.shouldEndWith(suffix: String) = this should endWith(suffix)
 infix fun String?.shouldStartWith(prefix: String) = this should startWith(prefix)
 
 @Deprecated("All package names are now io.kotest")
-infix fun <T, U : T> T.shouldBe(any: U?) = this shouldBe any
+infix fun <T, U : T> T.shouldBe(any: U?) = when (any) {
+   is Matcher<*> -> this shouldBe (any as Matcher<T>)
+   else -> this shouldBe (any as T)
+}
 
 @Deprecated("All package names are now io.kotest")
-infix fun <T> T.shouldNotBe(any: Any?) = this shouldNotBe any
+infix fun <T> T.shouldNotBe(any: Any?) = when (any) {
+   is Matcher<*> -> this shouldNotBe (any as Matcher<T>)
+   else -> this shouldNotBe (any as T)
+}
 
 @Deprecated("All package names are now io.kotest")
 fun <T> assertSoftly(block: () -> T): T = io.kotest.assertions.assertSoftly(block)
